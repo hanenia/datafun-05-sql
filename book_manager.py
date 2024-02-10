@@ -2,18 +2,14 @@ import sqlite3
 import pandas as pd
 import pathlib
 
-import logging
-# Configure logging to write to a file, appending new logs to the existing file
-logging.basicConfig(filename='log.txt', level=logging.DEBUG, filemode='a', format='%(asctime)s - %(levelname)s - %(message)s')
-
-logging.info("Program started")
-logging.info("Program ended")
-
 # Define the database file in the current root project directory
 db_file = pathlib.Path("project.db")
 
 def create_database():
-    """Function to create a database."""
+    """Function to create a database. Connecting for the first time
+    will create a new database file if it doesn't exist yet.
+    Close the connection after creating the database
+    to avoid locking the file."""
     try:
         conn = sqlite3.connect(db_file)
         conn.close()
@@ -22,7 +18,7 @@ def create_database():
         print("Error creating the database:", e)
 
 def create_tables():
-    """Function create tables"""
+    """Function to read and execute SQL statements to create tables"""
     try:
         with sqlite3.connect(db_file) as conn:
             sql_file = pathlib.Path("sql", "create_tables.sql")
@@ -57,5 +53,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
