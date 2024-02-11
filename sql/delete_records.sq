@@ -1,4 +1,4 @@
 -- SQL file to delete 1 record from a table
 
 -- Delete a record from 'authors'
-DELETE FROM authors WHERE  first_name = 'Harper';
+DELETE FROM authors WHERE  first = 'Harper';
